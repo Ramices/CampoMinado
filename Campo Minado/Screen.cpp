@@ -1,11 +1,7 @@
 #include "Screen.h"
 
-
-
-
-
-
-Screen::~Screen()
+void Screen::handleEvents(float& deltaTime)
 {
-	SDL_DestroyWindow(window);
+
+
 }

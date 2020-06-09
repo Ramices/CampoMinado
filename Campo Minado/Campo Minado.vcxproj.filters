@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Arquivos de Cabeçalho\Screen">
+      <UniqueIdentifier>{aaa46228-e471-4184-8d29-54c413729026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Arquivos de Origem\Screen">
+      <UniqueIdentifier>{ef8d81f7-c0a5-4c62-bf1b-7c3c530a0f51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Campo Minado.cpp">
@@ -21,25 +27,40 @@
     <ClCompile Include="Game.cpp">
       <Filter>Arquivos de Origem</Filter>
     </ClCompile>
-    <ClCompile Include="Screen.cpp">
-      <Filter>Arquivos de Origem</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClCompile>
-    <ClCompile Include="MainScreen.cpp">
+    <ClCompile Include="Utisl.cpp">
       <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Arquivos de Origem</Filter>
+    </ClCompile>
+    <ClCompile Include="MainScreen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayScreen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
-    <ClInclude Include="Screen.h">
+    <ClInclude Include="Texture.h">
       <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Arquivos de Cabeçalho\Screen</Filter>
+    </ClInclude>
     <ClInclude Include="MainScreen.h">
-      <Filter>Arquivos de Cabeçalho</Filter>
+      <Filter>Arquivos de Cabeçalho\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayScreen.h">
+      <Filter>Arquivos de Cabeçalho\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

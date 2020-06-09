@@ -147,14 +147,19 @@
   <ItemGroup>
     <ClCompile Include="Campo Minado.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GamePlayScreen.cpp" />
     <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Utisl.cpp" />
     <ClCompile Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GamePlayScreen.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="Screen.h" />
+    <ClInclude Include="Texture.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

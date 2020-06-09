@@ -5,20 +5,22 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 
+#include "Screen.h"
 
 class Game
 {
 
 public:
-	void init();
+	bool init();
 	void start();
 	void close();
+	bool closeGame{ false };
 
 private:
-
-
+	SDL_Window* window = nullptr;
+	SDL_Renderer* renderer = nullptr;
+	Screen* screen = nullptr;
 };
 
 #endif

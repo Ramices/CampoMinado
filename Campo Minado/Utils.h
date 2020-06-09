@@ -1,15 +1,46 @@
-#ifndef UTIL
-#define UTIL
+#ifndef UTIL_H
+#define UTIL_H
 
-enum class  GameScreen
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
+
+#include <string>
+
+class Util
 {
-	MAIN_SCREEN,
+	public:
+		static SDL_Texture* loadTexture(std::string path, SDL_Renderer* renderer);
+		static SDL_Texture* loadTextureFromText(std::string text, SDL_Renderer* renderer, TTF_Font* font, SDL_Color textColor);
+		static const int SCREEN_WIDTH = 720;
+		static const int SCREEN_HEIGHT = 630;
+
+
+};
+
+
+enum  GameScreen
+{
+	MAIN_SCREEN = 0,
 	SCORE_SCREEN,
 	GAME_SCREEN,
 	GAME_OVER_SCREEN,
-	OPTION_SCREEN	
+	OPTION_SCREEN,
+	QUIT_GAME,
+	TOTAL
 
 };
+
+enum Menu
+{
+	TITLE = 0,
+	NEW_GAME,
+	SCORE,
+	CONFIG,
+	QUIT,
+	TOTAL_MENU
+};
+
 
 
 #endif // !UTIL

@@ -9,21 +9,20 @@
 
 class Screen
 {
-private:
-	SDL_Window* window;
+protected:
 	SDL_Event events;
 
 
 public:
 
-	~Screen();
-	GameScreen nextScreen{ GameScreen::MAIN_SCREEN };
+	GameScreen nextScreen;
 	bool changeScreen{ false };
 
 
-	virtual void start() = 0;
+	virtual void start(SDL_Renderer*) = 0;
+	virtual void handleEvents(float&);
 	virtual void update(float&) = 0;
-	virtual void update(SDL_Renderer *) = 0;
+	virtual void render(SDL_Renderer *) = 0;
 	virtual void close() = 0;
 };
 
