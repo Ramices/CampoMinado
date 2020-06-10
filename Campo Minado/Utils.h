@@ -15,7 +15,15 @@ class Util
 		static const int SCREEN_WIDTH = 720;
 		static const int SCREEN_HEIGHT = 630;
 
+};
 
+enum TypeField
+{
+	FREE,
+	DISCOVER,
+	FLAG,
+	FLAG_MINE,
+	MINE
 };
 
 
@@ -27,6 +35,7 @@ enum  GameScreen
 	GAME_OVER_SCREEN,
 	OPTION_SCREEN,
 	QUIT_GAME,
+	END_GAME_SCREEN,
 	TOTAL
 
 };

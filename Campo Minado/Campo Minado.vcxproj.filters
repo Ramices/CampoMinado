@@ -45,6 +45,12 @@
     <ClCompile Include="GamePlayScreen.cpp">
       <Filter>Arquivos de Origem\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="GameOverScreen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="EndGameScreen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -61,6 +67,12 @@
     </ClInclude>
     <ClInclude Include="GamePlayScreen.h">
       <Filter>Arquivos de Cabeçalho\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="GameOverScreen.h">
+      <Filter>Arquivos de Cabeçalho\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="EndGameScreen.h">
+      <Filter>Arquivos de Cabeçalho</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

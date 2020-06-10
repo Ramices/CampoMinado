@@ -146,7 +146,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Campo Minado.cpp" />
+    <ClCompile Include="EndGameScreen.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverScreen.cpp" />
     <ClCompile Include="GamePlayScreen.cpp" />
     <ClCompile Include="MainScreen.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -155,7 +157,9 @@
     <ClCompile Include="Utils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EndGameScreen.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameOverScreen.h" />
     <ClInclude Include="GamePlayScreen.h" />
     <ClInclude Include="MainScreen.h" />
     <ClInclude Include="Screen.h" />

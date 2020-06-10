@@ -1,7 +1,9 @@
 #include "Game.h"
 #include "MainScreen.h"
 #include "GamePlayScreen.h"
+#include "GameOverScreen.h"
 #include "Utils.h"
+#include "EndGameScreen.h"
 
 bool Game::init()
 {
@@ -31,13 +33,19 @@ bool Game::init()
 
 void Game::start()
 {
-	float FPS = 60;
+	const int FPS = 60;
+	const int FramDelay = 1000 / FPS;
+
+	Uint32 frameStart = 0;
+	float frameTime = 1.f;
 
 	while (!closeGame)
 	{
 	
-		screen->handleEvents(FPS);
-		screen->update(FPS);
+		frameStart = SDL_GetTicks();
+
+		screen->handleEvents(frameTime);
+		screen->update(frameTime);
 
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 		SDL_RenderClear(renderer);
@@ -46,6 +54,12 @@ void Game::start()
 
 		SDL_RenderPresent(renderer);
 
+		frameTime = SDL_GetTicks() - frameStart;
+
+		if (FramDelay > frameTime)
+		{
+			SDL_Delay(FramDelay - frameTime);
+		}
 
 		if (screen->changeScreen)
 		{
@@ -62,6 +76,29 @@ void Game::start()
 					screen = new GamePlayScreen();
 					screen->start(renderer);
 					break;
+
+				case GAME_OVER_SCREEN:
+					screen->close();
+					delete(screen);
+					screen = new GameOverScreen();
+					screen->start(renderer);
+					break;
+					
+				case MAIN_SCREEN:
+					screen->close();
+					delete(screen);
+					screen = new MainScreen();
+					screen->start(renderer);
+					break;
+
+				case END_GAME_SCREEN:
+					screen->close();
+					delete(screen);
+					screen = new EndGameScreen();
+					screen->start(renderer);
+					break;
+
+
 			}
 		}
 

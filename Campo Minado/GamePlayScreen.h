@@ -5,6 +5,7 @@
 #include "Screen.h"
 #include "Texture.h"
 #include <SDL_ttf.h>
+#include <vector>
 
 class GamePlayScreen: public Screen
 {
@@ -16,12 +17,18 @@ public:
 	 void close();
 	 void drawGrid(SDL_Renderer * renderer);
 
+	 bool endGame();
+
 private:
 
 	TTF_Font* font;
-	Texture *fieldText;
-	Texture* numberField;
+	Texture *timeText;
+	Texture* timeNumber;
 	Texture* blankSpace;
+	Texture* flagSpace;
+	Texture* discoverSpace;
+
+
 	int widthSquare;
 	int heightSquare;
 	
@@ -29,7 +36,15 @@ private:
 
 	SDL_Color textColor;
 	SDL_Color backColor;
-	int totalFieldsDiscovery{ 0 };
+	int totalTime{ 0 };
+
+	std::vector<std::vector<TypeField>> field;
+	std::vector<Texture*> fieldsDiscovery;
+
+	SDL_Renderer* renderer;
+
+	int numberMines;
+
 
 };
 #endif
