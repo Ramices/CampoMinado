@@ -16,12 +16,20 @@ class Util
 		static const int SCREEN_HEIGHT = 630;
 };
 
+enum Option
+{
+	OPTION1 = 0,
+	OPTION2,
+	OPTION3
+};
+
 enum TypeField
 {
 	FREE,
 	DISCOVER,
 	FLAG,
 	FLAG_MINE,
+	FLAG_MINE_DISCOVERY,
 	MINE
 };
 

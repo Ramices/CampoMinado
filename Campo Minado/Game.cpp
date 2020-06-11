@@ -8,6 +8,7 @@
 #include <fstream>
 #include <algorithm>
 #include <iostream>
+#include "ConfigScreen.h"
 
 using namespace std;
 
@@ -33,12 +34,14 @@ bool Game::init()
 
 	}
 
+
 	return success;
 	
 }
 
 void Game::start()
 {
+	numberOfMines = 100;
 	const int FPS = 60;
 	const int FramDelay = 1000 / FPS;
 
@@ -79,7 +82,7 @@ void Game::start()
 				case GAME_SCREEN:
 					screen->close();
 					delete(screen);
-					screen = new GamePlayScreen();
+					screen = new GamePlayScreen(numberOfMines);
 					screen->start(renderer);
 					break;
 
@@ -89,12 +92,30 @@ void Game::start()
 					screen = new GameOverScreen();
 					screen->start(renderer);
 					break;
-					
-				case MAIN_SCREEN:
+
+				case OPTION_SCREEN:
 					screen->close();
 					delete(screen);
+					screen = new ConfigScreen();
+					screen->start(renderer);
+					break;
+
+
+				case MAIN_SCREEN:
+				{
+					
+					auto actualScreen = dynamic_cast<ConfigScreen*>(screen);
+					if (actualScreen)
+					{
+						numberOfMines = actualScreen->numberMines;
+					}
+					screen->close();
+					delete(screen);
+					
+
 					screen = new MainScreen();
 					screen->start(renderer);
+				}
 					break;
 
 				case END_GAME_SCREEN:

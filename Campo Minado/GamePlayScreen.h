@@ -10,6 +10,8 @@
 class GamePlayScreen: public Screen
 {
 public:
+	 GamePlayScreen(int);
+	 void activePowerUp();
 	 void start(SDL_Renderer*);
 	 void handleEvents(float&);
 	 void update(float&);
@@ -19,6 +21,9 @@ public:
 
 	 bool isEndGame();
 	 int totalTime{ 0 };
+	 void setNumberMines(int);
+	 int numberPowerUp;
+	 Texture* textNumberPowerUp;
 
 private:
 

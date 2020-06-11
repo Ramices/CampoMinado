@@ -4,10 +4,17 @@
 
 void EndGameScreen::start(SDL_Renderer* renderer)
 {
-	title = new Texture(Util::loadTexture("content\\end_game.png", renderer), 240, 100, 240, 50);
+	red.r = 255;
+	red.g = 0;
+	red.b = 0;
+	red.a = 255;
+	font = TTF_OpenFont("font/arial.ttf", 36);
+
+	title = new Texture(Util::loadTextureFromText("Parabéns! Você venceu", renderer, font, red), 240, 100, 240, 50);
+	congratz = new Texture(Util::loadTextureFromText("VOCÊ FEZ UM NOVO RECORDE", renderer, font, red), 160, 160, 400, 50);
+
 	time = 0;
 	showCongratz = false;
-	congratz = new Texture(Util::loadTexture("content\\end_game.png", renderer), 160, 160, 400, 50);
 }
 
 void EndGameScreen::setShowCongratz(bool _congratz)

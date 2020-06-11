@@ -11,7 +11,7 @@ class GameOverScreen:public Screen
 private:
 	Texture* title;
 	int time;
-
+	TTF_Font *font;
 public:
 	void start(SDL_Renderer*) override;
 	void handleEvents(float&) override;

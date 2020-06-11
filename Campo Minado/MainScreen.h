@@ -13,12 +13,14 @@ private:
 	Texture *menu[Menu::TOTAL_MENU];
 	Menu actualOption{Menu::NEW_GAME};
 	Menu previousOption{Menu::NEW_GAME };
+	TTF_Font* font;
+	SDL_Color red;
+	SDL_Color selectedColor;
 
 
 public: 
 	 
-	void updateMenu(SDL_Renderer*);
-	
+	void updateMenu(SDL_Renderer*);	
 	 void start(SDL_Renderer*)  override;
 	 void handleEvents(float&) override;
 	 void update(float&) override;

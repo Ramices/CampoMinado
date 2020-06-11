@@ -2,14 +2,26 @@
 
 void MainScreen::start(SDL_Renderer * renderer)
 {
-	menu[Menu::TITLE] = new Texture (Util::loadTexture("content\\title.png", renderer), 240, 70, 240, 80 );
-	menu[Menu::NEW_GAME] = new Texture(Util::loadTexture("content\\novo_jogo.png", renderer), 260, 160, 200, 50);
-	menu[Menu::SCORE] = new Texture(Util::loadTexture("content\\score.png", renderer), 260, 220, 200, 50);
-	menu[Menu::CONFIG] = new Texture(Util::loadTexture("content\\config.png", renderer), 260, 280, 200, 50);
-	menu[Menu::QUIT] = new Texture(Util::loadTexture("content\\sair.png", renderer), 260, 340, 200, 50);
+	font = TTF_OpenFont("font/arial.ttf", 36);
+
+	red.r = 255;
+	red.g = 0;
+	red.b = 0;
+	red.a = 255;
+
+
+	menu[Menu::TITLE] = new Texture(Util::loadTextureFromText("Campo Minado", renderer, font, red), 240, 70, 240, 80);
+	menu[Menu::NEW_GAME] = new Texture(Util::loadTextureFromText("Novo jogo", renderer, font, red ), 260, 160, 200, 50);
+	menu[Menu::SCORE] = new Texture(Util::loadTextureFromText("Score", renderer, font, red), 260, 220, 200, 50);
+	menu[Menu::CONFIG] = new Texture(Util::loadTextureFromText("Configurações", renderer, font, red), 260, 280, 200, 50);
+	menu[Menu::QUIT] = new Texture(Util::loadTextureFromText("Sair", renderer, font, red), 260, 340, 200, 50);
 	actualOption = Menu::NEW_GAME;
 
 
+	selectedColor.r = 255;
+	selectedColor.g = 122;
+	selectedColor.b = 75;
+	selectedColor.a = 255;
 }
 
 
@@ -20,17 +32,17 @@ void MainScreen::updateMenu(SDL_Renderer* renderer)
 	switch (previousOption)
 	{
 	case NEW_GAME:
-		menu[previousOption]->setTexture(Util::loadTexture("content\\novo_jogo.png", renderer));
+		menu[previousOption]->setTexture(Util::loadTextureFromText("Novo jogo", renderer, font, red));
 		break;
 	case SCORE:
-		menu[previousOption]->setTexture(Util::loadTexture("content\\score.png", renderer));
+		menu[previousOption]->setTexture(Util::loadTextureFromText("Score", renderer, font, red));
 		break;
 	case QUIT:
-		menu[previousOption]->setTexture(Util::loadTexture("content\\sair.png", renderer));
+		menu[previousOption]->setTexture(Util::loadTextureFromText("Sair", renderer, font, red));
 		break;
 
 	case CONFIG:
-		menu[previousOption]->setTexture(Util::loadTexture("content\\config.png", renderer));
+		menu[previousOption]->setTexture(Util::loadTextureFromText("Configurações", renderer, font, red));
 		break;
 
 	}
@@ -38,17 +50,17 @@ void MainScreen::updateMenu(SDL_Renderer* renderer)
 	switch (actualOption)
 	{
 	case NEW_GAME:
-		menu[actualOption]->setTexture(Util::loadTexture("content\\novo_jogo_selecionado.png", renderer));
+		menu[actualOption]->setTexture(Util::loadTextureFromText("Novo jogo", renderer, font, selectedColor));
 		break;
 	case SCORE:
-		menu[actualOption]->setTexture(Util::loadTexture("content\\score_selecionado.png", renderer));
+		menu[actualOption]->setTexture(Util::loadTextureFromText("Score", renderer, font, selectedColor));
 		break;
 	case QUIT:
-		menu[actualOption]->setTexture(Util::loadTexture("content\\sair_selecionado.png", renderer));
+		menu[actualOption]->setTexture(Util::loadTextureFromText("Sair", renderer, font, selectedColor));
 		break;
 
 	case CONFIG:
-		menu[actualOption]->setTexture(Util::loadTexture("content\\config_selecionado.png", renderer));
+		menu[actualOption]->setTexture(Util::loadTextureFromText("Configurações", renderer, font, selectedColor));
 		break;
 
 	}
@@ -89,6 +101,11 @@ void MainScreen::handleEvents(float& deltaTime)
 						nextScreen = SCORE_SCREEN;
 						break;
 
+					case CONFIG:
+						nextScreen = OPTION_SCREEN;
+						break;
+
+
 				}
 				
 
@@ -119,4 +136,7 @@ void MainScreen::close()
 	{
 		delete item;
 	}
+
+	TTF_CloseFont(font);
+
 }

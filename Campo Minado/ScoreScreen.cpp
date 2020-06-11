@@ -7,8 +7,9 @@ using namespace std;
 
 void ScoreScreen::start(SDL_Renderer* renderer)
 {
-	title = new Texture(Util::loadTexture("content\\score.png", renderer), 240, 100, 240, 50);
 	font = TTF_OpenFont("font/arial.ttf", 36);
+
+	title = new Texture(Util::loadTextureFromText("Melhores Scores", renderer, font, SDL_Color{255, 0, 0,255}), 240, 70, 240, 80);
 	fstream file("score\\score.txt");
 
 	vector<int> values;

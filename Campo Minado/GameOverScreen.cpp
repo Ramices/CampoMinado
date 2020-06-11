@@ -3,10 +3,12 @@
 
 void GameOverScreen::start(SDL_Renderer* renderer)
 {
-	title = new Texture(Util::loadTexture("content\\game_over.png", renderer), 240, 100, 240, 50);
+	font = TTF_OpenFont("font/arial.ttf", 36);
+
+	title = new Texture(Util::loadTextureFromText("Game Over", renderer, font, SDL_Color{ 255, 0, 0,255 }), 240, 70, 240, 80);
 	time = 0;
 }
-void GameOverScreen::handleEvents(float&)
+void GameOverScreen::handleEvents(float& deltaTime)
 {
 
 }
@@ -31,5 +33,7 @@ void GameOverScreen::render(SDL_Renderer* renderer)
 }
 void GameOverScreen::close()
 {
+
+	TTF_CloseFont(font);
 	delete title;
 }

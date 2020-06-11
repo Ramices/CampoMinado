@@ -21,6 +21,7 @@ private:
 	SDL_Window* window = nullptr;
 	SDL_Renderer* renderer = nullptr;
 	Screen* screen = nullptr;
+	int numberOfMines;
 };
 
 #endif

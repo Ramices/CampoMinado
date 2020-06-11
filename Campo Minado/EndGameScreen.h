@@ -12,6 +12,8 @@ private:
 	Texture* title;
 	Texture* congratz;
 	bool showCongratz;
+	TTF_Font* font;
+	SDL_Color red;
 
 	int time;
 

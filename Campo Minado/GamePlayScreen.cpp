@@ -5,12 +5,15 @@
 
 using namespace std;
 
+void GamePlayScreen::setNumberMines(int number)
+{
+	numberMines = number;
+}
 
 void GamePlayScreen::start(SDL_Renderer* renderer)
 { 
 	this->renderer = renderer;
-	numberMines = 0;
-
+	numberPowerUp = 3;
 	timeEndGame = 0;
 	widthSquare = 30;
 	heightSquare = 30;
@@ -37,7 +40,7 @@ void GamePlayScreen::start(SDL_Renderer* renderer)
 	discoverSpace = new Texture(Util::loadTexture("content\\discover_space.png", renderer), 0, 0, 0, 0);
 	mineSpace = new Texture(Util::loadTexture("content\\mine_space.png", renderer), 0, 0, 0, 0);
 	skySpace = new Texture(Util::loadTexture("content\\sky_space.png", renderer), 0, 0, 0, 0);
-
+	textNumberPowerUp = new Texture(Util::loadTextureFromText("Número de PowerUps: " + to_string(numberPowerUp), renderer, font, textColor), 460, 0, 240, 30);
 
 	default_random_engine engine(time(0));
 	uniform_int_distribution<unsigned int> rand(1, 10 );
@@ -71,12 +74,28 @@ void GamePlayScreen::start(SDL_Renderer* renderer)
 
 	endGame = false;
 }
+void GamePlayScreen::activePowerUp()
+{
+	bool breakPower = false;
+	for (int i = 0; i < field.size() && !breakPower; ++i)
+	{
 
+		for (int j = 0; j < field[i].size() && !breakPower; ++j)
+		{
+			if (field[i][j] == MINE)
+			{
+				field[i][j] = FLAG_MINE_DISCOVERY;
+				breakPower = true;
+			}
+			
+		}
+	}
+}
 
 void GamePlayScreen::handleEvents(float& deltaTime)
 {
-	//if (endGame)
-	//	return;
+	if (endGame)
+		return;
 
 	while (SDL_PollEvent(&events) != 0 )
 	{
@@ -103,6 +122,15 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 				selectedSquare.x = ((selectedSquare.x + widthSquare) >= Util::SCREEN_WIDTH) ? selectedSquare.x : (selectedSquare.x + widthSquare);
 				break;
 
+			case SDLK_p:
+				if (numberPowerUp > 0)
+				{
+					--numberPowerUp;
+					textNumberPowerUp->setTexture(Util::loadTextureFromText("Número de PowerUps: " + to_string(numberPowerUp), renderer, font, textColor));
+					activePowerUp();
+				}
+
+			break;
 
 			case SDLK_f:
 			{
@@ -140,7 +168,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 				int posX = static_cast<int>(selectedSquare.x / widthSquare);
 				int posY = static_cast<int>((selectedSquare.y - 30) / heightSquare);
 
-				if (field[posX][posY] == MINE || field[posX][posY] == FLAG_MINE)
+				if (field[posX][posY] == MINE || field[posX][posY] == FLAG_MINE || field[posX][posY] ==FLAG_MINE_DISCOVERY)
 				{
 					endGame = true;
 				}
@@ -153,7 +181,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 					if ((posY + 1) <= field[0].size())
 					{
 						//Baixo
-						if ((field[posX][posY + 1] == MINE || field[posX][posY+1] == FLAG_MINE))
+						if ((field[posX][posY + 1] == MINE || field[posX][posY+1] == FLAG_MINE || field[posX][posY + 1]== FLAG_MINE_DISCOVERY))
 						{
 							++totalMinesRound;
 						}
@@ -167,7 +195,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 					if ((posY - 1) >= 0)
 					{
 						//Cima
-						if (field[posX][posY - 1] == MINE || field[posX][posY - 1] == FLAG_MINE)
+						if (field[posX][posY - 1] == MINE || field[posX][posY - 1] == FLAG_MINE || field[posX][posY - 1] == FLAG_MINE_DISCOVERY)
 						{
 							++totalMinesRound;
 						}
@@ -183,7 +211,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 					{
 
 						//Direita
-						if (field[posX + 1][posY] == MINE || field[posX+1][posY] == FLAG_MINE)
+						if (field[posX + 1][posY] == MINE || field[posX+1][posY] == FLAG_MINE || field[posX+1][posY] == FLAG_MINE_DISCOVERY)
  						{
 
 							++totalMinesRound;
@@ -197,7 +225,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 						if ((posY - 1) >= 0)
 						{
 							//Nordeste
-							if (field[posX + 1][posY - 1] == MINE || field[posX+1][posY-1] == FLAG_MINE)
+							if (field[posX + 1][posY - 1] == MINE || field[posX+1][posY-1] == FLAG_MINE || field[posX+1][posY - 1] == FLAG_MINE_DISCOVERY)
 							{
 								++totalMinesRound;
 							}
@@ -210,7 +238,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 						if ((posY + 1) <= field[0].size())
 						{
 							//Sudeste
-							if (field[posX + 1][posY + 1] == MINE || field[posX+1][posY+1] == FLAG_MINE)
+							if (field[posX + 1][posY + 1] == MINE || field[posX+1][posY+1] == FLAG_MINE || field[posX+1][posY + 1] == FLAG_MINE_DISCOVERY)
 							{
 								++totalMinesRound;
 							}
@@ -226,7 +254,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 					if ((posX - 1) >= 0)
 					{
 						//esquerda
-						if (field[posX - 1][posY] == MINE || field[posX-1][posY] == FLAG_MINE)
+						if (field[posX - 1][posY] == MINE || field[posX-1][posY] == FLAG_MINE || field[posX-1][posY] == FLAG_MINE_DISCOVERY)
 						{
 
 							++totalMinesRound;
@@ -239,7 +267,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 						if ((posY - 1) >= 0)
 						{
 							//Noroeste
-							if (field[posX - 1][posY - 1] == MINE || field[posX -1][posY -1] == FLAG_MINE)
+							if (field[posX - 1][posY - 1] == MINE || field[posX -1][posY -1] == FLAG_MINE || field[posX -1][posY -1 ] == FLAG_MINE_DISCOVERY)
 							{
 
 								++totalMinesRound;
@@ -253,7 +281,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 						if ((posY + 1) <= field[0].size())
 						{
 							//Sudoeste
-							if (field[posX - 1][posY + 1] == MINE || field[posX-1][posY+1] == FLAG_MINE)
+							if (field[posX - 1][posY + 1] == MINE || field[posX-1][posY+1] == FLAG_MINE ||  field[posX-1][posY + 1] == FLAG_MINE_DISCOVERY)
 							{
 								++totalMinesRound;
 							}
@@ -368,6 +396,10 @@ void GamePlayScreen::drawGrid(SDL_Renderer* renderer)
 			{
 				discoverSpace->render(renderer, x, y, widthSquare, heightSquare);					
 			}
+			else if (field[posX][posY] == FLAG_MINE_DISCOVERY)
+			{
+				mineSpace->render(renderer, x, y, widthSquare, heightSquare);								
+			}
 			else
 			{
 				blankSpace->render(renderer, x, y, widthSquare, heightSquare);
@@ -379,7 +411,10 @@ void GamePlayScreen::drawGrid(SDL_Renderer* renderer)
 
 }
 
-
+GamePlayScreen::GamePlayScreen(int _numberMines)
+{
+	numberMines = _numberMines;
+}
 
 void GamePlayScreen::render(SDL_Renderer* renderer)
 {
@@ -395,7 +430,7 @@ void GamePlayScreen::render(SDL_Renderer* renderer)
 	timeNumber->setTexture(Util::loadTextureFromText(to_string(static_cast<int>(totalTime / 60)), renderer, font, textColor));
 	timeText->render(renderer);
 	timeNumber->render(renderer);
-
+	textNumberPowerUp->render(renderer);
 
 	drawGrid(renderer);
 
@@ -422,7 +457,7 @@ void GamePlayScreen::render(SDL_Renderer* renderer)
 	 delete discoverSpace;
 	 delete mineSpace;
 	 delete skySpace;
-
+	 delete textNumberPowerUp;
 	 for (auto field : fieldsDiscovery)
 	 {
 		 delete field;
