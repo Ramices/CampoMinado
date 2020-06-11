@@ -7,10 +7,11 @@ using namespace std;
 
 
 void GamePlayScreen::start(SDL_Renderer* renderer)
-{
+{ 
 	this->renderer = renderer;
 	numberMines = 0;
 
+	timeEndGame = 0;
 	widthSquare = 30;
 	heightSquare = 30;
 
@@ -20,24 +21,22 @@ void GamePlayScreen::start(SDL_Renderer* renderer)
 	selectedSquare.h = heightSquare;
 
 
-	totalTime = 0;
-	textColor.r = 255;
-	textColor.g = 255;
-	textColor.b = 255;
+	totalTime = 123;
+	textColor.r = 34;
+	textColor.g = 72;
+	textColor.b = 24;
 	textColor.a = 255;
 
-	backColor.r = 0;
-	backColor.g = 255;
-	backColor.b = 0;
-	backColor.a = 255;
 	
 
-	font = TTF_OpenFont("font/arial.ttf", 32);
+	font = TTF_OpenFont("font/arial.ttf", 36);
 	timeText = new Texture(Util::loadTextureFromText("Tempo decorrido: ", renderer, font, textColor), 0, 0, 240, 30);
 	timeNumber = new Texture(Util::loadTextureFromText(to_string(totalTime), renderer, font, textColor), 241, 5, 30, 20);
 	blankSpace = new Texture(Util::loadTexture("content\\blank_space.png", renderer), 0, 0, 0, 0);
 	flagSpace = new Texture(Util::loadTexture("content\\flag_space.png", renderer), 0, 0, 0, 0);
 	discoverSpace = new Texture(Util::loadTexture("content\\discover_space.png", renderer), 0, 0, 0, 0);
+	mineSpace = new Texture(Util::loadTexture("content\\mine_space.png", renderer), 0, 0, 0, 0);
+	skySpace = new Texture(Util::loadTexture("content\\sky_space.png", renderer), 0, 0, 0, 0);
 
 
 	default_random_engine engine(time(0));
@@ -70,12 +69,16 @@ void GamePlayScreen::start(SDL_Renderer* renderer)
 		}
 	}
 
+	endGame = false;
 }
 
 
 void GamePlayScreen::handleEvents(float& deltaTime)
 {
-	while (SDL_PollEvent(&events) != 0)
+	//if (endGame)
+	//	return;
+
+	while (SDL_PollEvent(&events) != 0 )
 	{
 		if (events.type == SDL_KEYDOWN)
 		{
@@ -139,9 +142,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 
 				if (field[posX][posY] == MINE || field[posX][posY] == FLAG_MINE)
 				{
-					changeScreen = true;
-					nextScreen = GAME_OVER_SCREEN;
-
+					endGame = true;
 				}
 				else
 				if (field[posX][posY] == FREE || field[posX][posY] == FLAG)
@@ -275,7 +276,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 					else
 					{
 						field[posX][posY] = DISCOVER;
-						fieldsDiscovery.push_back(new Texture(Util::loadTextureFromText(to_string(totalMinesRound), renderer, font, SDL_Color{ 0, 0, 0, 255 }), selectedSquare.x, selectedSquare.y, widthSquare, heightSquare));					
+						fieldsDiscovery.push_back(new Texture(Util::loadTextureFromText(to_string(totalMinesRound), renderer, font, SDL_Color{ 255, 255, 255, 255 }), selectedSquare.x, selectedSquare.y, widthSquare, heightSquare));					
 					}
 
 				}
@@ -291,7 +292,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 }
 
 
-bool GamePlayScreen::endGame()
+bool GamePlayScreen::isEndGame()
 {
 
 	for (int i = 0; i < field.size(); ++i)
@@ -313,12 +314,30 @@ bool GamePlayScreen::endGame()
 void GamePlayScreen::update(float& deltaTime)
 {
 
-	++totalTime;
 
-	if (endGame())
+
+	if (endGame )
 	{
-		changeScreen = true;
-		nextScreen = END_GAME_SCREEN;
+
+		if (timeEndGame >= 180)
+		{
+			changeScreen = true;
+			nextScreen = GAME_OVER_SCREEN;
+
+		}
+		++timeEndGame;
+
+	}
+	else
+	{
+		++totalTime;
+
+		if (isEndGame())
+		{
+			changeScreen = true;
+			nextScreen = END_GAME_SCREEN;
+
+		}
 	}
 
 }
@@ -334,8 +353,14 @@ void GamePlayScreen::drawGrid(SDL_Renderer* renderer)
 			int posY = static_cast<int>((y - 30) / heightSquare);
 
 
+			if (endGame && (field[posX][posY] == MINE || field[posX][posY] == FLAG_MINE))
+			{
+				mineSpace->render(renderer, x, y, widthSquare, heightSquare);
+			}
+			else
 			if (field[posX][posY] == FLAG || field[posX][posY] == FLAG_MINE)
 			{
+
 				flagSpace->render(renderer, x, y, widthSquare, heightSquare);
 			}
 			else
@@ -355,21 +380,29 @@ void GamePlayScreen::drawGrid(SDL_Renderer* renderer)
 }
 
 
+
 void GamePlayScreen::render(SDL_Renderer* renderer)
 {
-	SDL_SetRenderDrawColor(renderer, backColor.r, backColor.g, backColor.b, backColor.a);
-	SDL_RenderClear(renderer);
+
+	for (int x = 0; x < Util::SCREEN_WIDTH; x += 30)
+	{
+		skySpace->render(renderer, x, 0, widthSquare, heightSquare);
+
+	}
+	
+
+
+	timeNumber->setTexture(Util::loadTextureFromText(to_string(static_cast<int>(totalTime / 60)), renderer, font, textColor));
+	timeText->render(renderer);
+	timeNumber->render(renderer);
+
 
 	drawGrid(renderer);
 
-
+	SDL_SetRenderDrawColor(renderer, black.r, black.g, black.b, black.a);
 	SDL_RenderDrawRect(renderer, &selectedSquare);
 
 
-	timeNumber->setTexture(Util::loadTextureFromText(to_string(static_cast<int>(totalTime/60)), renderer, font, textColor));
-
-	timeText->render(renderer);
-	timeNumber->render(renderer);
 
 	for (auto field : fieldsDiscovery)
 	{
@@ -387,6 +420,8 @@ void GamePlayScreen::render(SDL_Renderer* renderer)
 	 delete blankSpace;
 	 delete flagSpace;
 	 delete discoverSpace;
+	 delete mineSpace;
+	 delete skySpace;
 
 	 for (auto field : fieldsDiscovery)
 	 {

@@ -14,7 +14,6 @@ class Util
 		static SDL_Texture* loadTextureFromText(std::string text, SDL_Renderer* renderer, TTF_Font* font, SDL_Color textColor);
 		static const int SCREEN_WIDTH = 720;
 		static const int SCREEN_HEIGHT = 630;
-
 };
 
 enum TypeField

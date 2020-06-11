@@ -4,6 +4,12 @@
 #include "GameOverScreen.h"
 #include "Utils.h"
 #include "EndGameScreen.h"
+#include "ScoreScreen.h"
+#include <fstream>
+#include <algorithm>
+#include <iostream>
+
+using namespace std;
 
 bool Game::init()
 {
@@ -92,9 +98,69 @@ void Game::start()
 					break;
 
 				case END_GAME_SCREEN:
+
+				{
+					fstream file("score\\score.txt");
+					vector<int> values;
+					bool showCongratz = false;
+
+
+					while (!file.eof())
+					{
+						int value;
+						file >> value;
+						values.push_back(value);
+					}
+					file.close();
+					ofstream fileWrite("score\\score.txt", ios::in || ios::out || ios::trunc);
+
+					int gameTime = ((GamePlayScreen*)screen)->totalTime/60;
+					
+
+					if (values.size() == 0)
+					{
+						showCongratz = true;
+						values.push_back(gameTime);
+					}
+					else
+					{
+						for (auto &value : values)
+						{
+
+							if (gameTime <= value)
+							{
+								showCongratz = true;
+								value = gameTime;
+								break;
+							}
+						}
+					}
+					sort(values.begin(), values.end());
+
+					for (int i =0; i < values.size(); ++i)
+					{
+						fileWrite << values[i];
+
+						if (i + 1 != values.size())
+							fileWrite << endl;
+					}
+
+
+					fileWrite.close();
+
+
 					screen->close();
 					delete(screen);
 					screen = new EndGameScreen();
+					screen->start(renderer);
+					((EndGameScreen*)screen)->setShowCongratz(showCongratz);
+				}
+					break;
+
+				case SCORE_SCREEN:
+					screen->close();
+					delete(screen);
+					screen = new ScoreScreen();
 					screen->start(renderer);
 					break;
 

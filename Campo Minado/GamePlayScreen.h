@@ -17,7 +17,8 @@ public:
 	 void close();
 	 void drawGrid(SDL_Renderer * renderer);
 
-	 bool endGame();
+	 bool isEndGame();
+	 int totalTime{ 0 };
 
 private:
 
@@ -27,16 +28,20 @@ private:
 	Texture* blankSpace;
 	Texture* flagSpace;
 	Texture* discoverSpace;
+	Texture* mineSpace;
+	Texture* skySpace;
+
 
 
 	int widthSquare;
 	int heightSquare;
 	
 	SDL_Rect selectedSquare;
+	SDL_Color black{ 0, 0, 0, 255 };
+
 
 	SDL_Color textColor;
-	SDL_Color backColor;
-	int totalTime{ 0 };
+	int timeEndGame{ 0 };
 
 	std::vector<std::vector<TypeField>> field;
 	std::vector<Texture*> fieldsDiscovery;
@@ -44,6 +49,7 @@ private:
 	SDL_Renderer* renderer;
 
 	int numberMines;
+	bool endGame;
 
 
 };

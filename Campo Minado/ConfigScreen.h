@@ -1,27 +1,19 @@
 #pragma once
-
-#ifndef END_GAME_SCREEN_H
-#define END_GAME_SCREEN_H
+#ifndef CONFIG_SCREEN_H
+#define CONFIG_SCREEN_H
 
 #include "Screen.h"
 #include "Texture.h"
 
-class EndGameScreen: public Screen
+class ConfigScreen : public Screen
 {
-private:
-	Texture* title;
-	Texture* congratz;
-	bool showCongratz;
-
-	int time;
-
 public:
-	void setShowCongratz(bool);
 	void start(SDL_Renderer*) override;
 	void handleEvents(float&) override;
 	void update(float&) override;
 	void render(SDL_Renderer*) override;
 	void close() override;
+
 };
 
-#endif;
+#endif

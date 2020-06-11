@@ -51,6 +51,12 @@
     <ClCompile Include="EndGameScreen.cpp">
       <Filter>Arquivos de Origem\Screen</Filter>
     </ClCompile>
+    <ClCompile Include="ScoreScreen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
+    </ClCompile>
+    <ClCompile Include="ConfigScreen.cpp">
+      <Filter>Arquivos de Origem\Screen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -72,7 +78,13 @@
       <Filter>Arquivos de Cabeçalho\Screen</Filter>
     </ClInclude>
     <ClInclude Include="EndGameScreen.h">
+      <Filter>Arquivos de Cabeçalho\Screen</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreScreen.h">
       <Filter>Arquivos de Cabeçalho</Filter>
+    </ClInclude>
+    <ClInclude Include="ConfigScreen.h">
+      <Filter>Arquivos de Cabeçalho\Screen</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

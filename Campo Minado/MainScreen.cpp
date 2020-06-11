@@ -2,7 +2,7 @@
 
 void MainScreen::start(SDL_Renderer * renderer)
 {
-	menu[Menu::TITLE] = new Texture (Util::loadTexture("content\\title.png", renderer), 240, 100, 240, 50 );
+	menu[Menu::TITLE] = new Texture (Util::loadTexture("content\\title.png", renderer), 240, 70, 240, 80 );
 	menu[Menu::NEW_GAME] = new Texture(Util::loadTexture("content\\novo_jogo.png", renderer), 260, 160, 200, 50);
 	menu[Menu::SCORE] = new Texture(Util::loadTexture("content\\score.png", renderer), 260, 220, 200, 50);
 	menu[Menu::CONFIG] = new Texture(Util::loadTexture("content\\config.png", renderer), 260, 280, 200, 50);
@@ -83,6 +83,10 @@ void MainScreen::handleEvents(float& deltaTime)
 						break;
 					case QUIT:
 						nextScreen = GameScreen::QUIT_GAME;
+						break;
+
+					case SCORE:
+						nextScreen = SCORE_SCREEN;
 						break;
 
 				}
