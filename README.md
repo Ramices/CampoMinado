@@ -7,7 +7,7 @@
 ### Instruções
 
 #### F: Adiciona/remove uma bandeira em um campo
-#### SPACE: Botão de ação. Usado para selecionar uma opção, ou para escolher um campo a ser revelado no jogo
+#### SPACE/ENTER: Botão de ação. Usado para selecionar uma opção, ou para escolher um campo a ser revelado no jogo
 #### P: Power Up. Revela o primeiro quadrado que ele encontrar com uma mina
 #### Setas: Cima, baixo, esquerda, direita
 
@@ -23,5 +23,5 @@
 
 
 ### Download executável
-#### [Download aqui](https://drive.google.com/file/d/1lNsmo98y0LQjpy0Uuce1y9na0Ds5Fax4/view?usp=sharing)
+#### [Download aqui](https://drive.google.com/file/d/1X7qwtGw0MZBjnZiIA0JOFP6cWOa2lSOT/view?usp=sharing)
 #### OBS: Sò funciona em sistemas operacionais Windows.
