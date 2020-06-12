@@ -187,11 +187,15 @@ void Game::start()
 
 
 			}
+
+
 		}
 
 
+		closeGame = screen->closeScreen;
 
 	}
+
 }
 
 void Game::close()

@@ -43,7 +43,7 @@ void GamePlayScreen::start(SDL_Renderer* renderer)
 	textNumberPowerUp = new Texture(Util::loadTextureFromText("Número de PowerUps: " + to_string(numberPowerUp), renderer, font, textColor), 460, 0, 240, 30);
 
 	default_random_engine engine(time(0));
-	uniform_int_distribution<unsigned int> rand(1, 10 );
+	uniform_int_distribution<unsigned int> rand(1, 20 );
 
 	field.resize(static_cast<int>(Util::SCREEN_WIDTH / widthSquare));
 	for (int i = 0; i < Util::SCREEN_WIDTH/widthSquare; ++i)
@@ -99,6 +99,11 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 
 	while (SDL_PollEvent(&events) != 0 )
 	{
+		if (events.type == SDL_QUIT)
+		{
+			closeScreen = true;
+		}
+		else
 		if (events.type == SDL_KEYDOWN)
 		{
 			switch (events.key.keysym.sym)
@@ -163,7 +168,7 @@ void GamePlayScreen::handleEvents(float& deltaTime)
 
 
 			case SDLK_SPACE:
-
+			case SDLK_KP_ENTER:
 
 				int posX = static_cast<int>(selectedSquare.x / widthSquare);
 				int posY = static_cast<int>((selectedSquare.y - 30) / heightSquare);

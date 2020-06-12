@@ -24,7 +24,13 @@ void EndGameScreen::setShowCongratz(bool _congratz)
 
 void EndGameScreen::handleEvents(float& deltaTime)
 {
-
+	while (SDL_PollEvent(&events) != 0)
+	{
+		if (events.type == SDL_QUIT)
+		{
+			closeScreen = true;
+		}
+	}
 }
 void EndGameScreen::update(float& deltaTime)
 {

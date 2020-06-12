@@ -24,6 +24,7 @@ public:
 	 void setNumberMines(int);
 	 int numberPowerUp;
 	 Texture* textNumberPowerUp;
+	
 
 private:
 

@@ -38,7 +38,13 @@ void ScoreScreen::start(SDL_Renderer* renderer)
 }
 void ScoreScreen::handleEvents(float& deltaTime)
 {
-
+	while (SDL_PollEvent(&events) != 0)
+	{
+		if (events.type == SDL_QUIT)
+		{
+			closeScreen = true;
+		}
+	}
 }
 void ScoreScreen::update(float& deltaTime)
 {

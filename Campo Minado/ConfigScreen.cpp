@@ -29,6 +29,11 @@ void ConfigScreen::handleEvents(float& deltaTime)
 {
 	while (SDL_PollEvent(&events) != 0)
 	{
+		if (events.type == SDL_QUIT)
+		{
+			closeScreen = true;
+		}
+		else
 		if (events.type == SDL_KEYDOWN)
 		{
 			switch (events.key.keysym.sym)
@@ -42,7 +47,7 @@ void ConfigScreen::handleEvents(float& deltaTime)
 				break;
 
 			case SDLK_SPACE:
-
+			case SDLK_KP_ENTER:
 				switch (option)
 				{
 				case OPTION1:

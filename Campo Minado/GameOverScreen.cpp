@@ -10,7 +10,13 @@ void GameOverScreen::start(SDL_Renderer* renderer)
 }
 void GameOverScreen::handleEvents(float& deltaTime)
 {
-
+	while (SDL_PollEvent(&events) != 0)
+	{
+		if (events.type == SDL_QUIT)
+		{
+			closeScreen = true;
+		}
+	}
 }
 void GameOverScreen::update(float& deltaTime)
 {

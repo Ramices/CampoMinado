@@ -17,6 +17,7 @@ public:
 
 	GameScreen nextScreen;
 	bool changeScreen{ false };
+	bool closeScreen{ false };
 
 
 	virtual void start(SDL_Renderer*) = 0;
